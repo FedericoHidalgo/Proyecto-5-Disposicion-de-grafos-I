@@ -4,7 +4,7 @@ import random
 
 # Configuración de pantalla
 WIDTH, HEIGHT = 800, 600
-NODE_RADIUS = 10
+NODE_RADIUS = 4
 EDGE_COLOR = (200, 200, 200)
 NODE_COLOR = (50, 150, 250)
 BG_COLOR = (30, 30, 30)
@@ -21,7 +21,7 @@ def initialize_positions(graph, width, height):
     positions = {node: (random.randint(50, width - 50), random.randint(50, height - 50)) for node in graph["nodes"]}
     return positions
 
-def spring_layout(graph, positions, width, height, iterations=50):
+def spring_layout(graph, positions, width, height, iterations=200):
     k = math.sqrt((width * height) / len(graph["nodes"]))  # Constante de distancia óptima
     for _ in range(iterations):
         # Calcular fuerzas repulsivas
@@ -79,9 +79,9 @@ def main():
     pygame.display.set_caption("Visualización de Grafos - Método de Resortes")
 
     graph = {
-        "nodes": ["A", "B", "C", "D", "E", "F", "G", "H"],
+        "nodes": ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
         "edges": [("A", "B"), ("A", "D"), ("D", "E"), ("B", "E"), ("B", "C"), ("E", "F"), ("C", "F")\
-                  , ("F", "G"), ("G", "H"), ("D", "F"), ("E", "G"), ("F", "H")],
+                  , ("G", "H"), ("H", "I"), ("D", "G"), ("E", "H"), ("F", "I")],
     }
 
     positions = initialize_positions(graph, WIDTH, HEIGHT)
