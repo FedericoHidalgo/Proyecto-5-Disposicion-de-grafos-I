@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# Proyecto-4---Algoritmos-de-Kruskal-y-Prim
-Utilizando la biblioteca de grafos desarrollada en el proyecto 1, implementar los algoritmos de Kruskal (directo e inverso) y Prim de tal forma que calculen el árbol de expansión mínima
-=======
 # Proyecto-5-Disposicion-de-grafos-I
 Dado un grafo, y utilizando pygame, generar una visualización del mismo. Mediante el método Spring. Calcula la disposición de un grafo mediante el algoritmo de resortes presentado por P. Eades (1984). O(m+n)
 
