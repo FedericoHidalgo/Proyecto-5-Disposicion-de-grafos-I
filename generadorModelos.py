@@ -37,10 +37,10 @@ def modeloMalla(m, n, dirigido = False):
     for i in range(m*n):
         #Conectamos nodos de la misma fila
         if (i % n) != 0:
-            G.agregarArista(i-1, i, ' -> ')
+            G.agregarArista(i-1, i, ',')
         #Conectamos nodos de la misma columna
         if i > 0 and (i + n) < m*n+1:
-            G.agregarArista(i-1, (i-1)+n, ' -> ')
+            G.agregarArista(i-1, (i-1)+n, ',')
     
     return G
 

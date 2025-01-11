@@ -1,13 +1,14 @@
-import pygame
-import math
-import random
+import pygame, math, random
+from generadorModelos import *
 
 # Configuración de pantalla
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1000, 800
 NODE_RADIUS = 4
 EDGE_COLOR = (200, 200, 200)
 NODE_COLOR = (50, 150, 250)
 BG_COLOR = (30, 30, 30)
+reloj = pygame.time.Clock()
+FPS = 60
 
 # Algoritmo de resortes
 def attractive_force(d, k):
@@ -18,10 +19,11 @@ def repulsive_force(d, k):
 
 # Inicializar posiciones y fuerzas
 def initialize_positions(graph, width, height):
-    positions = {node: (random.randint(50, width - 50), random.randint(50, height - 50)) for node in graph["nodes"]}
+    positions = {node: (random.randint(50, width - 50), random.randint(50, height - 50))\
+                  for node in graph["nodes"]}
     return positions
 
-def spring_layout(graph, positions, width, height, iterations=200):
+def spring_layout(graph, positions, width, height, iterations=500, screen=None):
     k = math.sqrt((width * height) / len(graph["nodes"]))  # Constante de distancia óptima
     for _ in range(iterations):
         # Calcular fuerzas repulsivas
@@ -58,6 +60,7 @@ def spring_layout(graph, positions, width, height, iterations=200):
                 min(width - 50, max(50, positions[node][0] + forces[node][0] * 0.1)),
                 min(height - 50, max(50, positions[node][1] + forces[node][1] * 0.1)),
             )
+        draw_graph(screen, graph, positions)
     return positions
 
 # Dibujar grafo con Pygame
@@ -71,6 +74,7 @@ def draw_graph(screen, graph, positions):
     for node, (x, y) in positions.items():
         pygame.draw.circle(screen, NODE_COLOR, (int(x), int(y)), NODE_RADIUS)
     pygame.display.flip()
+    reloj.tick(FPS)
 
 # Main
 def main():
@@ -78,14 +82,27 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Visualización de Grafos - Método de Resortes")
 
+    modelo = modeloMalla(5,5)
+
+    nodes = []
+    edges = []
+    for i in modelo.nodos.values():
+        nodes.append(i)
+
+    for i in modelo.aristas.values():
+        e = modelo.nodoVecino(i)
+        edges.append(e)
+
     graph = {
-        "nodes": ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
-        "edges": [("A", "B"), ("A", "D"), ("D", "E"), ("B", "E"), ("B", "C"), ("E", "F"), ("C", "F")\
-                  , ("G", "H"), ("H", "I"), ("D", "G"), ("E", "H"), ("F", "I")],
+        "nodes": nodes,
+        "edges": edges,
     }
+    
+    for arista in graph["edges"]:
+        e1, e2 = arista
+        print(f"Arista: {e1}, {e2}")
 
     positions = initialize_positions(graph, WIDTH, HEIGHT)
-    positions = spring_layout(graph, positions, WIDTH, HEIGHT)
 
     running = True
     while running:
@@ -93,7 +110,8 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        draw_graph(screen, graph, positions)
+        #draw_graph(screen, graph, positions)
+        spring_layout(graph, positions, WIDTH, HEIGHT, screen=screen)
     pygame.quit()
 
 if __name__ == "__main__":

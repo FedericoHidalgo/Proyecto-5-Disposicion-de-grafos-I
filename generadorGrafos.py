@@ -237,8 +237,9 @@ class Grafo:
         Método que obtiene los nodos conectados a una arista
         n0 -- n1
         """
-        #Obtenemos los nodos (u, v)        
-        n = arista.split(' -> ', 1)
+        #Obtenemos los nodos (u, v) 
+        arista = str(arista)       
+        n = arista.split(',', 1)
         return n
     
     def combinarConjuntos(self, lista, indices):
