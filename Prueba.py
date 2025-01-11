@@ -98,7 +98,7 @@ def main():
     screen = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("Visualización de Grafos - Método de Resortes")
 
-    n = 500
+    n = 100
     modelo = modeloErdosRenyi(n,int(n*1.5))
     #print(modelo)
 
