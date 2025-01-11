@@ -100,7 +100,7 @@ def modeloGilbert(p, n, dirigido = False):
             if random.random() < p:
                 #No se crea aristas hacia el mismo nodo
                 if(j != i):
-                    G.agregarArista(i, j,' -> ')
+                    G.agregarArista(i, j,',')
     return G
 
 def distanciaNodos(n1, n2):
@@ -152,7 +152,7 @@ def modeloGeograficoSimple(n, r, dirigido = False):
                 #Obtenemos distancia r
                 d = distanciaNodos(n1, n2)
                 if d <= r:
-                     G.agregarArista(i, j,' -> ')
+                     G.agregarArista(i, j,',')
     return G
 
 def listaAleatoria(inicio, fin):
@@ -236,7 +236,7 @@ def modeloDorogovtsevMendes(n, dirigido = False):
         for j in [1, 2]:
             #Evitamos conexiones al mismo nodo
             if i != j:
-                G.agregarArista(i, j, ' -> ')
+                G.agregarArista(i, j, ',')
                 #Guardamos los nodos donde se conectan las aristas
                 #1, 2 y 3 respectivamente
                 triangulo[i+j] = i, j
@@ -247,5 +247,5 @@ def modeloDorogovtsevMendes(n, dirigido = False):
         #Creamos dos aristas entre el nodo creado y los dos extremos 
         #de la arista obtenida de forma random
         for j in [0, 1]:
-            G.agregarArista(i, triangulo[aristaTriangulo][j], ' -> ')
+            G.agregarArista(i, triangulo[aristaTriangulo][j], ',')
     return G

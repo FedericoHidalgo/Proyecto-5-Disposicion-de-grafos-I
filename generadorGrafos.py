@@ -111,7 +111,7 @@ class Grafo:
         """
         cadena = ''
         #Formato DOT
-        cadena += 'digraph ' + id + '{\n'
+        cadena += 'dig ' + id + '{\n'
         #Imprimir los nodos
         for nodo in self.nodos:
             if self.attr.get(nodo) == str(0):
@@ -132,7 +132,7 @@ class Grafo:
         """
         cadena = ''
         #Formato DOT
-        cadena += 'digraph ' + id + '{\n'
+        cadena += 'dig ' + id + '{\n'
         #Imprimir los nodos
         for nodo in self.nodosT:
             if self.attrT.get(nodo) == str(0):
@@ -157,9 +157,9 @@ class Grafo:
         archivo.close()
         return nombreArchivo     
 
-    def graphViz(self, id, tipo):
+    def gViz(self, id, tipo):
         """
-        Genera un archivo con formato GraphViz
+        Genera un archivo con formato gViz
         """
         if tipo == 'Grafo':
             cadena = self.crearCadena(id)
@@ -169,7 +169,7 @@ class Grafo:
             print("Tipo de grafo no reconocido")
             return False
         archivo = self.crearArchivo(id, cadena)
-        print('Archivo GraphViz generado: ' + archivo + '\n')        
+        print('Archivo gViz generado: ' + archivo + '\n')        
         
     def getDiccionarios(self):
         """

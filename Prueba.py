@@ -26,24 +26,23 @@ def fzaRepulsiva(d, k):
     return k ** 2 / d if d > 0 else k ** 2
 
 # Inicializar posiciones y fuerzas
-def posicionesIniciales(graph, ancho, alto):
+def posicionesIniciales(g, ancho, alto):
     """
     Obtiene posiciones iniciales aleatorias para los nodos
     """
     posiciones = {nodo: (random.randint(50, ancho - 50), random.randint(50, alto - 50))\
-                  for nodo in graph["nodes"]}
+                  for nodo in g["nodos"]}
     return posiciones
 
-def Spring(graph, posiciones, ancho, alto, screen=None):
+def Spring(g, posiciones, ancho, alto, pantalla=None):
     """
     Método Spring para la visualización de grafos
     """
-    #250*230
-    k = math.sqrt((250 * 230) / (len(graph["nodes"])/ 2))/2  # Constante de distancia óptima
+    k = math.sqrt((250 * 230) / (len(g["nodos"])/ 2))/2  # Constante de distancia óptima
     # Calcular fuerzas repulsivas
-    fuerzas = {nodo: [0, 0] for nodo in graph["nodes"]}
-    for n1 in graph["nodes"]:
-        for n2 in graph["nodes"]:
+    fuerzas = {nodo: [0, 0] for nodo in g["nodos"]}
+    for n1 in g["nodos"]:
+        for n2 in g["nodos"]:
             if n1 != n2:
                 x1, y1 = posiciones[n1]
                 x2, y2 = posiciones[n2]
@@ -55,7 +54,7 @@ def Spring(graph, posiciones, ancho, alto, screen=None):
                 fuerzas[n1][1] -= math.sin(angulo) * fuerza
 
     # Calcular fuerzas atractivas
-    for e in graph["edges"]:
+    for e in g["aristas"]:
         n1, n2 = e
         x1, y1 = posiciones[n1]
         x2, y2 = posiciones[n2]
@@ -70,62 +69,61 @@ def Spring(graph, posiciones, ancho, alto, screen=None):
 
     m = 0.001 # Factor de movimiento
     # Actualizar posiciones
-    for n in graph["nodes"]:
+    for n in g["nodos"]:
         posiciones[n] = (
             min(ancho - 25, max(25, posiciones[n][0] + fuerzas[n][0] * m)),
             min(alto - 25, max(25, posiciones[n][1] + fuerzas[n][1] * m)),
         )
-    draw_graph(screen, graph, posiciones)   
+    actualizarPantalla(pantalla, g, posiciones)   
     
     return posiciones
 
 # Dibujar grafo con Pygame
-def draw_graph(screen, graph, posiciones):
-    screen.fill(colorFondo)
+def actualizarPantalla(pantalla, g, posiciones):
+    pantalla.fill(colorFondo)
     # Dibujar aristas
-    for edge in graph["edges"]:
-        n1, n2 = edge
-        pygame.draw.line(screen, colorArista, posiciones[n1], posiciones[n2], 2)
+    for e in g["aristas"]:
+        n1, n2 = e
+        pygame.draw.line(pantalla, colorArista, posiciones[n1], posiciones[n2], 2)
     # Dibujar nodos
-    for node, (x, y) in posiciones.items():
-        pygame.draw.circle(screen, colorNodo, (int(x), int(y)), radioNodo)
+    for n, (x, y) in posiciones.items():
+        pygame.draw.circle(pantalla, colorNodo, (int(x), int(y)), radioNodo)
     pygame.display.flip()
     reloj.tick(FPS)
 
 # Main
 def main():
+    #Iniciamos Pygame
     pygame.init()
-    screen = pygame.display.set_mode((ancho, alto))
+    pantalla = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("Visualización de Grafos - Método de Resortes")
-
-    n = 100
-    modelo = modeloErdosRenyi(n,int(n*1.5))
-    #print(modelo)
-
-    nodes = []
-    edges = []
+    # Creamos un modelo de grafo
+    n = 4
+    modelo = modeloMalla(n,n)
+    # Obtenemos los nodos y aristas del modelo
+    nodos = []
+    aristas = []
     for i in modelo.nodos.values():
-        nodes.append(i)
-
+        nodos.append(i)
     for i in modelo.aristas.values():
         e = modelo.nodoVecino(i)
-        edges.append(e)
-
-    graph = {
-        "nodes": nodes,
-        "edges": edges,
+        aristas.append(e)
+    # Creamos el grafo
+    g = {
+        "nodos": nodos,
+        "aristas": aristas,
     }
+    # Obtenemos las posiciones iniciales de los nodos
+    posiciones = posicionesIniciales(g, ancho, alto)
+    # Bucle principal
+    ejecucion = True
+    while ejecucion:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                ejecucion = False
 
-    posiciones = posicionesIniciales(graph, ancho, alto)
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        #draw_graph(screen, graph, posiciones)
-        Spring(graph, posiciones, ancho, alto, screen=screen)
+        #actualizarPantalla(pantalla, g, posiciones)
+        Spring(g, posiciones, ancho, alto, pantalla=pantalla)
     pygame.quit()
 
 if __name__ == "__main__":

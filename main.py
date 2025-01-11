@@ -18,7 +18,7 @@ def generarMST(numNodos):
     print("Kruskal Inverso: ", kruskalInverso)
     nombreArchivo = "kruskalInverso " + numNodos + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'MST')
+    modelo.gViz(nombreArchivo, 'MST')
     modelo.limpiarMST()
 
     #Kruskal Directo
@@ -26,7 +26,7 @@ def generarMST(numNodos):
     print("Kruskal Directo: ", kruskalDirecto)
     nombreArchivo = "kruskalDirecto " + numNodos + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'MST')
+    modelo.gViz(nombreArchivo, 'MST')
     modelo.limpiarMST()
 
     #Prim
@@ -34,7 +34,7 @@ def generarMST(numNodos):
     print("Prim: ", prim)
     nombreArchivo = "Prim " + numNodos + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'MST')
+    modelo.gViz(nombreArchivo, 'MST')
     modelo.limpiarMST()
 
 """
@@ -46,7 +46,7 @@ for i in numNodos:
     modelo = modeloMalla(matriz[i][0], matriz[i][1])
     nombreArchivo = "Malla " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
 
 
@@ -59,7 +59,7 @@ for i in numNodos:
     modelo = modeloErdosRenyi(i, i*2)
     nombreArchivo = "Erdos Renyi " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
 
 
@@ -73,7 +73,7 @@ for i in numNodos:
     modelo = modeloGilbert(p, i)
     nombreArchivo = "Gilbert " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
 
 
@@ -87,7 +87,7 @@ for i in numNodos:
     modelo = modeloGeograficoSimple(i, r)
     nombreArchivo = "Geografico Simple " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
 
 
@@ -101,7 +101,7 @@ for i in numNodos:
     modelo = modeloBarabasiAlbert(i, d)
     nombreArchivo = "Barabasi Albert " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
 
 
@@ -114,5 +114,5 @@ for i in numNodos:
     modelo = modeloDorogovtsevMendes(i)
     nombreArchivo = "Dorogovtsev Mendes " + str(i) + " nodos"
     #Generamos el archivo .gv
-    modelo.graphViz(nombreArchivo, 'Grafo')
+    modelo.gViz(nombreArchivo, 'Grafo')
     generarMST(i)
