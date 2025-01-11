@@ -58,7 +58,7 @@ def modeloErdosRenyi(n, m, dirigido = False):
     if inicio != True:
         #Se interrumpe la ejecución del método si no se cumplen las
         #condiciones de inicio
-        return
+        return False
 
     #Creamos los nodos
     for i in range(n):
@@ -71,7 +71,7 @@ def modeloErdosRenyi(n, m, dirigido = False):
         v2 = random.randint(0, n-1)
         #Si v1 != v2 creamos una arista
         if v1 != v2:
-            G.agregarArista(v1, v2,' -> ')
+            G.agregarArista(v1, v2,',')
     return G
 
 def modeloGilbert(p, n, dirigido = False):
@@ -203,7 +203,7 @@ def modeloBarabasiAlbert(n, d=0, dirigido = False):
                 #Nos aseguramos que el nodo no se conecte consigo mismo
                 if lista[j] != i:
                     #Agregamos arista entre el nodo origen y el nodo random
-                    G.agregarArista(i, lista[j], ' -> ')
+                    G.agregarArista(i, lista[j], ',')
                     #Aumentamos el grado del nodo random
                     grado[lista[j]] += 1 
                     #Aumentamos el grado del nodo origen

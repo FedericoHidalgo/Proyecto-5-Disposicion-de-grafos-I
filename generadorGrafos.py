@@ -17,14 +17,12 @@ class Grafo:
         self.costos = {}
         self.dirigido = dirigido    #Grafo no dirigido como valor de inicio
         self.attr = {}
-        self.posicion = {}
         #Para el MST
         self.nodosT = {}
         self.aristasT = {}
         self.costosT = {}
         self.attrT = {}
         self.dirigidoT = dirigido    #Grafo no dirigido como valor de inicio
-        self.posicionT = {}
 
     def limpiarMST(self):
         """
@@ -44,22 +42,8 @@ class Grafo:
         #Si no existe se crea uno nuevo        
         if nodo == None:
             nodo = Nodo(id)
-            self.nodos[id] = str(nodo)  #Agrega un nodo  
-            self.posicion[id] = numpy.array([numpy.random.randint(10,700),numpy.random.randint(10,700) ])   #Posición del nodo en el plano
+            self.nodos[id] = str(nodo)  #Agrega un nodo
         return nodo
-    
-    def obtenerPosicion(self, id):
-        """
-        Obtiene la posición de un nodo
-        """
-        return self.posicion.get(id)
-    
-    def actualizarPosicion(self, id, pos):
-        """
-        Actualiza la posición de un nodo
-        """
-        self.posicion[id] = pos
-        return self.posicion.get(id)
 
     def agregarNodoT(self, id):
         """
