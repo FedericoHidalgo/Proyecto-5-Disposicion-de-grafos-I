@@ -3,4 +3,4 @@ Dado un grafo, y utilizando pygame, generar una visualización del mismo. Median
 
 Enlace de videos:
 
-https://correoipn-my.sharepoint.com/:f:/g/personal/fhidalgom1500_alumno_ipn_mx/EijCMbBgjeBCq60JIOf3VSgB34-joUv93NhnrbYLIQMmLA?e=1ic0oi
+https://correoipn-my.sharepoint.com/:f:/g/personal/fhidalgom1500_alumno_ipn_mx/EijCMbBgjeBCq60JIOf3VSgBZgNDGQMkPqmjJEEWg02vww?e=mgvIFU
